@@ -42,9 +42,9 @@ products_db
 В рамках лабораторной работы был создан gRPC-сервис ProductCatalog.
 
 Описание сервиса выполнено в файле:
-
+```
 product.proto
-
+```
 Сервис содержит метод:
 
 GetProductDetails — возвращает информацию о товаре по его ID.
@@ -58,6 +58,7 @@ GetProductDetails — возвращает информацию о товаре 
 (Простыми словами: один вопрос — один ответ.)
 
 📷 Содержимое файла product.proto
+```
 syntax = "proto3";
 
 package product;
@@ -77,18 +78,19 @@ message ProductResponse {
   float price = 4;
   bool in_stock = 5;
 }
+```
 ⚙ Генерация gRPC-кода
 
 После создания product.proto была выполнена команда:
-
+```
 python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. product.proto
-
+```
 В результате автоматически были созданы файлы:
-
+```
 product_pb2.py
 
 product_pb2_grpc.py
-
+```
 Эти файлы обеспечивают взаимодействие клиента и сервера через gRPC.
 
 🖥 Реализация сервера
@@ -107,24 +109,25 @@ GetProductDetails — выполняет поиск товара по ID и во
 В системе реализована генерация 50 товарных позиций, которые хранятся в памяти (имитация базы данных).
 
 Сервер запускается на порту:
-
+```
 50052
-
+```
 и ожидает подключения клиентов.
 
 📷 Скриншот: запущенный сервер
-(вставить скриншот с "Server started on port 50052")
+<img width="551" height="121" alt="image" src="https://github.com/user-attachments/assets/6ef94f4b-e0aa-4f1c-a8af-48b9f7e4af39" />
+
 
 💻 Реализация клиента
 
 Клиентская часть реализована в файле:
-
+```
 client.py
-
+```
 Подключение выполняется через:
-
+```
 grpc.insecure_channel('localhost:50052')
-
+```
 Клиент позволяет:
 
 ввести ID товара;
@@ -134,11 +137,12 @@ grpc.insecure_channel('localhost:50052')
 получить и вывести информацию о товаре.
 
 Вызов метода выполняется через:
-
+```
 response = stub.GetProductDetails(request)
-
+```
 📷 Скриншот: получение информации о товаре
-(вставить скриншот результата)
+<img width="472" height="269" alt="image" src="https://github.com/user-attachments/assets/8867e6c0-24f8-4fdc-9a16-f679b0e04fa4" />
+
 
 🧠 Используемые технологии
 
@@ -152,11 +156,17 @@ Virtual Environment (venv)
 
 🚀 Запуск проекта
 1️⃣ Активация виртуального окружения
+```
 venv\Scripts\activate
+```
 2️⃣ Запуск сервера
+```
 python server.py
+```
 3️⃣ Запуск клиента
+```
 python client.py
+```
 📊 Результат работы
 
 Сервис корректно:
